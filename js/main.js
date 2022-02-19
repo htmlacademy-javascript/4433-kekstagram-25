@@ -13,4 +13,11 @@ function getRandomNumber(min, max) {
   // Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 }
 
+function checkCommentLength(comment, maxLength) {
+  const commentLength = String(comment).length;
+
+  return maxLength >= commentLength;
+}
+
+checkCommentLength('Комментарий', 140);
 getRandomNumber(0, 1);
