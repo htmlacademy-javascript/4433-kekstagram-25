@@ -1,3 +1,4 @@
+'use strict';
 const PHOTO_DESCRIPTIONS = [
   'Сегодня прекрасный день! Приехала на дачу.',
   'Меня трудно понять, невозможно сохранить и что-то там ещё.',
@@ -28,6 +29,9 @@ const COMMENT_TEXTS = [
 
 const PHOTO_COUNT = 25;
 
+const COMMENT_MAX_COUNT = 10;
+const COMMENT_INDEXES = getRandomNumbers(COMMENT_MAX_COUNT);
+
 function getRandomNumber(min, max) {
   if (min < 0 || max < 0) {
     return '⛔ Ошибка. Некорректный диапазон: числа должны быть положительными.';
@@ -49,11 +53,24 @@ function checkCommentLength(comment, maxLength) {
   return maxLength >= commentLength;
 }
 
-const getRandomArrayElement = (elements) => ( elements[getRandomNumber(0, elements.length - 1)] );
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const createComment = () => {
+function getRandomNumbers(count) {
+  let result = [];
+
+  while (result.length < count) {
+      const randomNumber = Math.floor(Math.random() * count * 100);
+      if (result.indexOf(randomNumber) === -1) {
+          result.push(randomNumber);
+      }
+  }
+
+  return result;
+}
+
+const createComment = (value, i) => {
   return {
-    id: getRandomNumber(1, 200),
+    id: COMMENT_INDEXES[i],
     avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
     message: getRandomArrayElement(COMMENT_TEXTS),
     name: getRandomArrayElement(USER_NAMES)
@@ -66,7 +83,7 @@ const createPhotoItem = (i) => {
     url: 'photos/' + i + '.jpg',
     description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
-    comments: Array.from({length: getRandomNumber(0, 10)}, createComment)
+    comments: Array.from({length: getRandomNumber(0, COMMENT_MAX_COUNT)}, createComment)
   };
 };
 
@@ -75,3 +92,5 @@ const photos = [];
 for (let i = 1; i <= PHOTO_COUNT; i++) {
   photos.push(createPhotoItem(i));
 }
+
+console.log(photos);
