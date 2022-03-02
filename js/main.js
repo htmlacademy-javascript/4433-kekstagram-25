@@ -30,9 +30,14 @@ const COMMENT_TEXTS = [
 const PHOTO_COUNT = 25;
 
 const COMMENT_MAX_COUNT = 10;
-const COMMENT_INDEXES = getRandomNumbers(COMMENT_MAX_COUNT);
 
-function getRandomNumber(min, max) {
+const AVATAR_MIN_VALUE = 1;
+const AVATAR_MAX_VALUE = 6;
+
+const LIKES_MIN_VALUE = 15;
+const LIKES_MAX_VALUE = 255;
+
+const getRandomNumber = (min, max) => {
   if (min < 0 || max < 0) {
     return '⛔ Ошибка. Некорректный диапазон: числа должны быть положительными.';
   }
@@ -45,47 +50,45 @@ function getRandomNumber(min, max) {
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
   // Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-}
+};
 
-function checkCommentLength(comment, maxLength) {
+const checkCommentLength = (comment, maxLength) => {
   const commentLength = String(comment).length;
 
   return maxLength >= commentLength;
-}
+};
+
+checkCommentLength();
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-function getRandomNumbers(count) {
-  let result = [];
+const commentRandomIds = [];
 
-  while (result.length < count) {
-      const randomNumber = Math.floor(Math.random() * count * 100);
-      if (result.indexOf(randomNumber) === -1) {
-          result.push(randomNumber);
-      }
+const createComment = () => {
+  const randomId = getRandomNumber(1, 10000);
+
+  while (commentRandomIds.indexOf(randomId) < 0) {
+    commentRandomIds.push(randomId);
   }
 
-  return result;
-}
-
-const createComment = (value, i) => {
   return {
-    id: COMMENT_INDEXES[i],
-    avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
+    id: commentRandomIds[commentRandomIds.length - 1],
+    avatar: `img/avatar-${getRandomNumber(AVATAR_MIN_VALUE, AVATAR_MAX_VALUE)}.svg`,
     message: getRandomArrayElement(COMMENT_TEXTS),
     name: getRandomArrayElement(USER_NAMES)
   };
 };
 
-const createPhotoItem = (i) => {
-  return {
+
+const createPhotoItem = (i) => (
+  {
     id: i,
-    url: 'photos/' + i + '.jpg',
+    url: `photos/${i}.jpg`,
     description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
-    likes: getRandomNumber(15, 200),
+    likes: getRandomNumber(LIKES_MIN_VALUE, LIKES_MAX_VALUE),
     comments: Array.from({length: getRandomNumber(0, COMMENT_MAX_COUNT)}, createComment)
-  };
-};
+  }
+);
 
 const photos = [];
 
@@ -93,4 +96,4 @@ for (let i = 1; i <= PHOTO_COUNT; i++) {
   photos.push(createPhotoItem(i));
 }
 
-console.log(photos);
+console.log(photos)
