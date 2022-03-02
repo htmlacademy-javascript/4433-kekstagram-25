@@ -95,5 +95,3 @@ const photos = [];
 for (let i = 1; i <= PHOTO_COUNT; i++) {
   photos.push(createPhotoItem(i));
 }
-
-console.log(photos)
