@@ -1,35 +1,35 @@
-const commentsContainer = document.querySelector('.social__comments');
-const commentsItem = document.querySelector('.social__comment');
-const commentsFragment = document.createDocumentFragment();
+const listContainer = document.querySelector('.social__comments');
+const commentItem = document.querySelector('.social__comment');
+const fragment = document.createDocumentFragment();
 
-const commentsCount = document.querySelector('.social__comment-count');
-const commentsCountTotal = commentsCount.querySelector('.comments-count');
+const count = document.querySelector('.social__comment-count');
+const countTotal = count.querySelector('.comments-count');
 
-const commentsLoader = document.querySelector('.social__comments-loader');
+const loader = document.querySelector('.social__comments-loader');
 
 const renderCommentList = (comments) => {
   comments.forEach((comment) => {
-    const newCommemtItem = commentsItem.cloneNode(true);
+    const newItem = commentItem.cloneNode(true);
 
-    const newCommemtItemAuthor = newCommemtItem.querySelector('.social__picture');
-    newCommemtItemAuthor.src = comment.avatar;
-    newCommemtItemAuthor.alt = comment.name;
+    const newCommentAuthor = newItem.querySelector('.social__picture');
+    newCommentAuthor.src = comment.avatar;
+    newCommentAuthor.alt = comment.name;
 
-    newCommemtItem.querySelector('.social__text').textContent = comment.message;
+    newItem.querySelector('.social__text').textContent = comment.message;
 
-    commentsFragment.append(newCommemtItem);
+    fragment.append(newItem);
   });
 
-  commentsCountTotal.textContent = comments.length;
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  countTotal.textContent = comments.length;
+  count.classList.add('hidden');
+  loader.classList.add('hidden');
 
-  commentsContainer.innerHTML = '';
-  commentsContainer.append(commentsFragment);
+  listContainer.innerHTML = '';
+  listContainer.append(fragment);
 };
 
 const clearCommentList = () => {
-  commentsContainer.innerHTML = '';
+  listContainer.innerHTML = '';
 };
 
 export {renderCommentList, clearCommentList};
