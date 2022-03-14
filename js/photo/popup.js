@@ -1,4 +1,4 @@
-import {createComments} from './popup-comments.js';
+import {createCommentList} from './comment-list.js';
 
 const popup = document.querySelector('.big-picture');
 const popupImage = popup.querySelector('.big-picture__img img');
@@ -12,7 +12,7 @@ const openPopup = (url, likes, comments, description) => {
   popupImageDescription.textContent = description;
 
   if (comments.length > 0) {
-    createComments(comments);
+    createCommentList(comments);
   }
 
   popup.classList.remove('hidden');

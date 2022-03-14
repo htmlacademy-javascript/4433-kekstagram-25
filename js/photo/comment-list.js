@@ -7,7 +7,7 @@ const commentsCountTotal = commentsCount.querySelector('.comments-count');
 
 const commentsLoader = document.querySelector('.social__comments-loader');
 
-const createComments = (comments) => {
+const createCommentList = (comments) => {
   comments.forEach((comment) => {
     const newCommemtItem = commentsItem.cloneNode(true);
 
@@ -28,4 +28,4 @@ const createComments = (comments) => {
   commentsContainer.append(commentsFragment);
 };
 
-export {createComments};
+export {createCommentList};
