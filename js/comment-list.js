@@ -1,35 +1,35 @@
-const listContainer = document.querySelector('.social__comments');
-const commentItem = document.querySelector('.social__comment');
+const listContainerElement = document.querySelector('.social__comments');
+const commentElement = document.querySelector('.social__comment');
 const fragment = document.createDocumentFragment();
 
-const count = document.querySelector('.social__comment-count');
-const countTotal = count.querySelector('.comments-count');
+const countElement = document.querySelector('.social__comment-count');
+const countTotalElement = countElement.querySelector('.comments-count');
 
-const loader = document.querySelector('.social__comments-loader');
+const loaderElememt = document.querySelector('.social__comments-loader');
 
 const renderCommentList = (comments) => {
   comments.forEach((comment) => {
-    const newItem = commentItem.cloneNode(true);
+    const newComment = commentElement.cloneNode(true);
 
-    const newCommentAuthor = newItem.querySelector('.social__picture');
+    const newCommentAuthor = newComment.querySelector('.social__picture');
     newCommentAuthor.src = comment.avatar;
     newCommentAuthor.alt = comment.name;
 
-    newItem.querySelector('.social__text').textContent = comment.message;
+    newComment.querySelector('.social__text').textContent = comment.message;
 
-    fragment.append(newItem);
+    fragment.append(newComment);
   });
 
-  countTotal.textContent = comments.length;
-  count.classList.add('hidden');
-  loader.classList.add('hidden');
+  countTotalElement.textContent = comments.length;
+  countElement.classList.add('hidden');
+  loaderElememt.classList.add('hidden');
 
-  listContainer.innerHTML = '';
-  listContainer.append(fragment);
+  listContainerElement.innerHTML = '';
+  listContainerElement.append(fragment);
 };
 
 const clearCommentList = () => {
-  listContainer.innerHTML = '';
+  listContainerElement.innerHTML = '';
 };
 
 export {renderCommentList, clearCommentList};
