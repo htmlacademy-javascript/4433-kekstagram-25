@@ -673,7 +673,6 @@ main {
   width: 450px;
 
   margin: 0 auto;
-  margin-bottom: 20px;
   padding: 5px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
@@ -697,6 +696,18 @@ main {
   border-radius: 5px;
 }
 
+/**
+ * Контейнеры ошибок
+ */
+ .img-upload__item {
+   margin-bottom: 20px;
+ }
+
+ .img-upload__error {
+   color: red;
+   text-transform: none;
+   margin-top: 5px;
+ }
 
 /**
  * Кнопка для отправки изображения

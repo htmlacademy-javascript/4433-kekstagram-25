@@ -33,4 +33,8 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement, showElement, hideElement, isEscapeKey};
+const removeInputValue = (input) => {
+  input.innerHtml = '';
+};
+
+export {getRandomNumber, getRandomArrayElement, showElement, hideElement, isEscapeKey, removeInputValue};

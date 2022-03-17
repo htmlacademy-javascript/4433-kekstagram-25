@@ -35,9 +35,8 @@
             id="upload-select-image"
             method="post"
             enctype="multipart/form-data"
+            action="https://25.javascript.pages.academy/kekstagram"
             autocomplete="off">
-
-            <!-- action="https://25.javascript.pages.academy/kekstagram" -->
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
@@ -122,8 +121,13 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
-                  <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                  <div class="img-upload__item">
+                    <input class="text__hashtags" id="hashtags" name="hashtags" placeholder="#ХэшТеги через пробел">
+                  </div>
+
+                  <div class="img-upload__item">
+                    <textarea class="text__description" name="description" id="description" placeholder="Ваш комментарий..."></textarea>
+                  </div>
                 </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
