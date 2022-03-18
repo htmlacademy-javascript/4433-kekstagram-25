@@ -9,7 +9,6 @@ const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
 const onPopupEscKeydown = (evt) => {
   const activeElement = document.activeElement;
   const isPopupInputActive = (activeElement === hashtagsInput) || (activeElement === descriptionInput);
-
   if (isEscapeKey(evt) && !isPopupInputActive) {
     evt.preventDefault();
     closePopup(popupElement);
