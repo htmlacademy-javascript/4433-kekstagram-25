@@ -6,23 +6,27 @@ const rangeInput = document.querySelector('.scale__control--value');
 const rangeBiggerButton = document.querySelector('.scale__control--bigger');
 const rangeSmallerButton = document.querySelector('.scale__control--smaller');
 
-imagePreviewElement.style.transform = `scale(${parseInt(rangeInput.value, 10) / 100})`;
+const scalePhotoPreview = (value) => {
+  const scale = parseInt(value, 10) / 100;
+  imagePreviewElement.style.transform = `scale(${scale})`;
+};
+
+scalePhotoPreview(rangeInput.value);
 
 rangeBiggerButton.addEventListener('click', () => {
   rangeInput.value = parseInt(rangeInput.value, 10) + SCALE_STEP;
-  imagePreviewElement.style.transform = `scale(${parseInt(rangeInput.value, 10) / 100})`;
+  scalePhotoPreview(rangeInput.value);
 });
 
 rangeSmallerButton.addEventListener('click', () => {
   rangeInput.value = parseInt(rangeInput.value, 10) - SCALE_STEP;
-  imagePreviewElement.style.transform = `scale(${parseInt(rangeInput.value, 10) / 100})`;
+  scalePhotoPreview(rangeInput.value);
 });
 
 rangeInput.addEventListener('change', () => {
-  imagePreviewElement.style.transform = `scale(${parseInt(rangeInput.value, 10) / 100})`;
+  scalePhotoPreview(rangeInput.value);
 });
 
 rangeInput.addEventListener('input', () => {
-  imagePreviewElement.style.transform = `scale(${parseInt(rangeInput.value, 10) / 100})`;
+  scalePhotoPreview(rangeInput.value);
 });
-
