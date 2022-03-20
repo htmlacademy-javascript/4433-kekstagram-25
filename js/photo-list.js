@@ -1,8 +1,8 @@
-import {createPhotoItem} from '../data.js';
-import consts from '../consts.js';
-import {openPopup} from '../photo/popup.js';
+import {createPhotoItem} from './data.js';
+import consts from './consts.js';
+import {openPreviewPopup} from './popup-preview.js';
 
-const createPictureList = (container, template, pictures) => {
+const renderPictureList = (container, template, pictures) => {
   const pictureFragment = document.createDocumentFragment();
 
   pictures.forEach((photo) => {
@@ -14,7 +14,7 @@ const createPictureList = (container, template, pictures) => {
 
     pictureItem.addEventListener('click', (evt) => {
       evt.preventDefault();
-      openPopup(photo.url, photo.likes, photo.comments, photo.description);
+      openPreviewPopup(photo.url, photo.likes, photo.comments, photo.description);
     });
 
     pictureFragment.appendChild(pictureItem);
@@ -36,4 +36,4 @@ const pictureTemplate = document
 
 const pictureListContainer = document.querySelector('.pictures');
 
-createPictureList(pictureListContainer, pictureTemplate, photos);
+renderPictureList(pictureListContainer, pictureTemplate, photos);

@@ -19,10 +19,22 @@ const checkCommentLength = (comment, maxLength) => {
   return maxLength >= commentLength;
 };
 
-checkCommentLength();
+const showElement = (element) => {
+  element.classList.remove('hidden');
+};
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+const hideElement = (element) => {
+  element.classList.add('hidden');
+};
+
+checkCommentLength();
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomNumber, getRandomArrayElement, isEscapeKey};
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+
+const removeInputValue = (input) => {
+  input.innerHtml = '';
+};
+
+export {getRandomNumber, getRandomArrayElement, showElement, hideElement, isEscapeKey, removeInputValue};

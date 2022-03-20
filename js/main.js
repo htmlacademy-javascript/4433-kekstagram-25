@@ -1,1 +1,3 @@
-import './photoList/create-list.js';
+import './photo-list.js';
+import './popup-upload.js';
+
