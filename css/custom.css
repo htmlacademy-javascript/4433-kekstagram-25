@@ -1,0 +1,16 @@
+/**
+ * Контейнеры ошибок
+ */
+ .img-upload__item {
+  margin-bottom: 20px;
+}
+
+.img-upload__error {
+  color: red;
+  text-transform: none;
+  margin-top: 5px;
+}
+
+.text__hashtags {
+  margin-bottom: 0;
+}
