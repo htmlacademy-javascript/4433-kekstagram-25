@@ -1,4 +1,5 @@
 import './scale-photo.js';
+import './set-photo-effects.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
