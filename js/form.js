@@ -1,5 +1,6 @@
 import './scale-photo.js';
 import './set-photo-effects.js';
+import {checkCommentLength} from './util.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
@@ -13,8 +14,6 @@ const pristine = new Pristine(formElement, {
   errorTextTag: 'div',
   errorTextClass: 'img-upload__error'
 }, false);
-
-const commentValidate = (value) => value.length <= 140;
 
 const hashtagsValidate = (value) => {
   const hashtagArray = value.split(' ');
@@ -36,7 +35,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   descriptionInput,
-  commentValidate,
+  checkCommentLength,
   'Длина комментария должна быть не больше 140 символов'
 );
 

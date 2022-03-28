@@ -4,7 +4,7 @@ import {hashtagsInput, descriptionInput} from './form.js';
 import {sliderElement, sliderValueElement, imagePreviewElement} from './set-photo-effects.js';
 import {scaleInput, scalePhotoPreview} from './scale-photo.js';
 
-const popupElement = document.querySelector('.img-upload__overlay');
+const popupElement = document.querySelector('.img-upload__overlay--uploading_form');
 const uploadFileInput = document.querySelector('#upload-file');
 const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
 

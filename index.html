@@ -30,6 +30,13 @@
 
       <!-- Поле для загрузки нового изображения на сайт -->
       <section class="img-upload">
+        <div class="img-upload__overlay img-upload__overlay--error hidden">
+          <div class="img-upload__error img-upload__error--main">
+            Фотографии не загружены 🙁
+          </div>
+          <button class="img-upload__button">Попробовать ещё раз</button>
+        </div>
+
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
           <form
@@ -47,7 +54,7 @@
             </fieldset>
 
             <!-- Форма редактирования изображения -->
-            <div class="img-upload__overlay hidden">
+            <div class="img-upload__overlay img-upload__overlay--uploading_form hidden">
               <div class="img-upload__wrapper">
                 <div class="img-upload__preview-container">
 
