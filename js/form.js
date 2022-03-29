@@ -1,6 +1,5 @@
-import './scale-photo.js';
-import './set-photo-effects.js';
 import {checkCommentLength} from './util.js';
+import {sendData} from './send-data.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
@@ -42,7 +41,12 @@ pristine.addValidator(
 formElement.addEventListener('submit', (evt) => {
   const isValidate = pristine.validate();
 
-  if (!isValidate) {
+  if (isValidate) {
+    const formData = new FormData(evt.target);
+    evt.preventDefault();
+    const sendForm = () => sendData(formData);
+    sendForm();
+  } else {
     evt.preventDefault();
   }
 });

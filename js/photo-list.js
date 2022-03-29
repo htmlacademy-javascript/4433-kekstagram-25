@@ -1,5 +1,5 @@
 import {openPreviewPopup} from './popup-preview.js';
-import {createLoader} from './loader.js';
+import {getData} from './get-data.js';
 import {showElement, hideElement} from './util.js';
 
 const pictureTemplate = document
@@ -36,7 +36,7 @@ const onRenderUploadingError = () => {
   showElement(errorElement);
 };
 
-const loadPictures = () => createLoader(renderPictureList, onRenderUploadingError);
+const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
 
 loadPictures();
 

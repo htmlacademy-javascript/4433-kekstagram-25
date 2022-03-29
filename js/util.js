@@ -2,7 +2,6 @@ import constList from './consts.js';
 
 const checkCommentLength = (comment) => {
   const commentLength = String(comment).length;
-
   return commentLength <= constList.COMMENT_MAX_LENGTH;
 };
 
@@ -18,6 +17,7 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const removeInputValue = (input) => {
   input.innerHtml = '';
+  input.value = '';
 };
 
 export {checkCommentLength, showElement, hideElement, isEscapeKey, removeInputValue};
