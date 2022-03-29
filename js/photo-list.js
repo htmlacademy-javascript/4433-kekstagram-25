@@ -1,6 +1,6 @@
 import {openPreviewPopup} from './popup-preview.js';
 import {getData} from './get-data.js';
-import {showElement, hideElement} from './util.js';
+import {show, hide} from './util.js';
 
 const pictureTemplate = document
   .querySelector('#picture')
@@ -33,7 +33,7 @@ const renderPictureList = (pictures) => {
 };
 
 const onRenderUploadingError = () => {
-  showElement(errorElement);
+  show(errorElement);
 };
 
 const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
@@ -41,6 +41,6 @@ const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
 loadPictures();
 
 updateUploadingButton.addEventListener('click', () => {
-  hideElement(errorElement);
+  hide(errorElement);
   loadPictures();
 });

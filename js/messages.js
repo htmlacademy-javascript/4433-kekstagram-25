@@ -1,10 +1,10 @@
-import {showElement, hideElement} from './util.js';
+import {show, hide} from './util.js';
 import {isEscapeKey} from './util.js';
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideElement(document.querySelector('.success'));
+    hide(document.querySelector('.success'));
   }
 };
 
@@ -22,7 +22,7 @@ const createMessageElement = (type) => {
 
   messageButton.addEventListener('click', () => {
     if (type === 'success') {
-      hideElement(messageElement);
+      hide(messageElement);
       document.removeEventListener('keydown', onPopupEscKeydown);
     }
   });
@@ -35,7 +35,7 @@ createMessageElement('error');
 
 const onSendingForm = (type) => {
   const messageElement = document.querySelector(`.${type}`);
-  showElement(messageElement);
+  show(messageElement);
 };
 
 export {onSendingForm};

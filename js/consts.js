@@ -15,5 +15,9 @@ export default {
   HEAT_STEP: .1,
   NONE_MIN_VALUE: 0,
   NONE_MAX_VALUE: 100,
-  NONE_STEP: 1
+  NONE_STEP: 1,
+
+  SCALE_STEP: 25,
+  MAX_SCALE: 100,
+  MIN_SCALE: 25
 };

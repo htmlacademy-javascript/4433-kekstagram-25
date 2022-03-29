@@ -14,12 +14,12 @@ const pristine = new Pristine(formElement, {
   errorTextClass: 'img-upload__error'
 }, false);
 
-const hashtagsValidate = (value) => {
-  const hashtagArray = value.split(' ');
+const validateHashtags = (value) => {
+  const hashtags = value.split(' ');
   let isValidate = true;
 
   if (value.length > 0) {
-    hashtagArray.forEach((hashtag) => {
+    hashtags.forEach((hashtag) => {
       isValidate = isValidate && re.test(hashtag);
     });
   }
@@ -28,7 +28,7 @@ const hashtagsValidate = (value) => {
 
 pristine.addValidator(
   hashtagsInput,
-  hashtagsValidate,
+  validateHashtags,
   'Хэштег должен начинаться с # и состоять только из букв и цифр'
 );
 
@@ -44,6 +44,7 @@ formElement.addEventListener('submit', (evt) => {
   if (isValidate) {
     const formData = new FormData(evt.target);
     evt.preventDefault();
+
     const sendForm = () => sendData(formData);
     sendForm();
   } else {

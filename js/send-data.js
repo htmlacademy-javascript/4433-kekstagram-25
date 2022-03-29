@@ -1,5 +1,5 @@
 import {onSendingForm} from './messages.js';
-import {closePopup} from './popup.js';
+import {close} from './popup.js';
 import {popupElement} from './popup-uploading.js';
 
 const sendData = (formData) => fetch(
@@ -11,15 +11,15 @@ const sendData = (formData) => fetch(
 )
   .then((response) => {
     if (response.ok) {
-      closePopup(popupElement);
+      close(popupElement);
       onSendingForm('success');
     } else {
-      closePopup(popupElement);
+      close(popupElement);
       onSendingForm('error');
     }
   })
   .catch(() => {
-    closePopup(popupElement);
+    close(popupElement);
     onSendingForm('error');
   });
 

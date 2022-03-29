@@ -1,24 +1,24 @@
-import {openPopup, closePopup} from './popup.js';
-import {isEscapeKey, removeInputValue} from './util.js';
+import {open, close} from './popup.js';
+import {isEscapeKey, removeValue} from './util.js';
 import {hashtagsInput, descriptionInput} from './form.js';
 import {sliderElement, sliderValueElement, imagePreviewElement, setDefaultEffects} from './set-photo-effects.js';
-import {scaleInput, scalePhotoPreview} from './scale-photo.js';
+import {scalingInput, scalePhotoPreview} from './scale-photo.js';
 
 const popupElement = document.querySelector('.img-upload__overlay--uploading_form');
 const uploadFileInput = document.querySelector('#upload-file');
 const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
 
 const onClosingUploadingPopup = () => {
-  closePopup(popupElement);
+  close(popupElement);
 
-  removeInputValue(uploadFileInput);
-  removeInputValue(hashtagsInput);
-  removeInputValue(descriptionInput);
+  removeValue(uploadFileInput);
+  removeValue(hashtagsInput);
+  removeValue(descriptionInput);
 
-  scaleInput.value = '100%';
+  scalingInput.value = '100%';
   scalePhotoPreview(100);
 
-  removeInputValue(sliderValueElement);
+  removeValue(sliderValueElement);
   sliderElement.setAttribute('disabled', true);
   imagePreviewElement.classList = '';
   imagePreviewElement.style.filter = '';
@@ -36,7 +36,7 @@ const onPopupEscKeydown = (evt) => {
 };
 
 uploadFileInput.addEventListener('change', () => {
-  openPopup(popupElement);
+  open(popupElement);
   document.addEventListener('keydown', onPopupEscKeydown);
 });
 
