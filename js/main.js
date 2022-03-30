@@ -1,3 +1,3 @@
 import './photo-list.js';
-import './popup-upload.js';
+import './popup-uploading.js';
 

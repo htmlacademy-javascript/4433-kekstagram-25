@@ -1,3 +1,5 @@
+import consts from './consts.js';
+
 const imagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectListInputs = document.querySelectorAll('.effects__radio');
 
@@ -11,7 +13,7 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: 100,
   },
-  start: 80,
+  start: 100,
   step: 1,
   connect: 'lower',
 });
@@ -26,52 +28,52 @@ const updateSliderOptions = (effectType) => {
     case 'sepia':
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 1
+          min: consts.SEPIA_MIN_VALUE,
+          max: consts.SEPIA_MAX_VALUE
         },
-        step: .1
+        step: consts.SEPIA_STEP
       });
-      sliderElement.noUiSlider.set(1);
+      sliderElement.noUiSlider.set(consts.SEPIA_MAX_VALUE);
       break;
     case 'marvin':
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 100
+          min: consts.MARVIN_MIN_VALUE,
+          max: consts.MARVIN_MAX_VALUE
         },
-        step: 1,
+        step: consts.MARVIN_STEP,
       });
-      sliderElement.noUiSlider.set(100);
+      sliderElement.noUiSlider.set(consts.MARVIN_MAX_VALUE);
       break;
     case 'phobos':
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 3
+          min: consts.PHOBOS_MIN_VALUE,
+          max: consts.PHOBOS_MAX_VALUE
         },
-        step: .1,
+        step: consts.PHOBOS_STEP,
       });
       sliderElement.noUiSlider.set(3);
       break;
     case 'heat':
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 1,
-          max: 3
+          min: consts.HEAT_MIN_VALUE,
+          max: consts.HEAT_MAX_VALUE
         },
-        step: .1,
+        step: consts.HEAT_STEP,
       });
-      sliderElement.noUiSlider.set(3);
+      sliderElement.noUiSlider.set(consts.HEAT_MAX_VALUE);
       break;
     case 'none':
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 100,
+          min: consts.NONE_MIN_VALUE,
+          max: consts.NONE_MAX_VALUE
         },
-        step: 1,
+        step: consts.NONE_STEP,
       });
-      sliderElement.noUiSlider.set(100);
+      sliderElement.noUiSlider.set(consts.NONE_MAX_VALUE);
       sliderElement.setAttribute('disabled', true);
       break;
   }
@@ -104,6 +106,13 @@ const setEffectStyle = (value) => {
   }
 };
 
+const setDefaultEffects = () => {
+  selectedEffect = 'none';
+  updateSliderOptions(selectedEffect);
+  setEffectStyle();
+  effectListInputs[0].checked = true;
+};
+
 effectListInputs.forEach((effectButton) => {
   effectButton.addEventListener('change', () => {
     imagePreviewElement.className = '';
@@ -124,4 +133,4 @@ sliderElement.noUiSlider.on('update', () => {
   setEffectStyle(sliderValueElement.value);
 });
 
-export {sliderElement, sliderValueElement, selectedEffect, imagePreviewElement};
+export {sliderElement, sliderValueElement, imagePreviewElement, setDefaultEffects};

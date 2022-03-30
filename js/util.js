@@ -1,40 +1,23 @@
-const getRandomNumber = (min, max) => {
-  if (min < 0 || max < 0) {
-    return '⛔ Ошибка. Некорректный диапазон: числа должны быть положительными.';
-  }
+import consts from './consts.js';
 
-  if (min > max) {
-    const temp = min;
-    min = max;
-    max = temp;
-  }
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-  // Источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-};
-
-const checkCommentLength = (comment, maxLength) => {
+const checkCommentLength = (comment) => {
   const commentLength = String(comment).length;
-
-  return maxLength >= commentLength;
+  return commentLength <= consts.COMMENT_MAX_LENGTH;
 };
 
-const showElement = (element) => {
+const show = (element) => {
   element.classList.remove('hidden');
 };
 
-const hideElement = (element) => {
+const hide = (element) => {
   element.classList.add('hidden');
 };
 
-checkCommentLength();
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
-
-const removeInputValue = (input) => {
+const removeValue = (input) => {
   input.innerHtml = '';
+  input.value = '';
 };
 
-export {getRandomNumber, getRandomArrayElement, showElement, hideElement, isEscapeKey, removeInputValue};
+export {checkCommentLength, show, hide, isEscapeKey, removeValue};

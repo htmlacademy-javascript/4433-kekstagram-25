@@ -1,12 +1,21 @@
-import {createPhotoItem} from './data.js';
-import consts from './consts.js';
 import {openPreviewPopup} from './popup-preview.js';
+import {getData} from './get-data.js';
+import {show, hide} from './util.js';
 
-const renderPictureList = (container, template, pictures) => {
+const pictureTemplate = document
+  .querySelector('#picture')
+  .content
+  .querySelector('.picture');
+
+const pictureListElement = document.querySelector('.pictures');
+const errorElement = document.querySelector('.img-upload__overlay--error');
+const updateUploadingButton = document.querySelector('.img-upload__button');
+
+const renderPictureList = (pictures) => {
   const pictureFragment = document.createDocumentFragment();
 
   pictures.forEach((photo) => {
-    const pictureItem = template.cloneNode(true);
+    const pictureItem = pictureTemplate.cloneNode(true);
 
     pictureItem.querySelector('.picture__img').src = photo.url;
     pictureItem.querySelector('.picture__likes').textContent = photo.likes;
@@ -20,20 +29,18 @@ const renderPictureList = (container, template, pictures) => {
     pictureFragment.appendChild(pictureItem);
   });
 
-  container.appendChild(pictureFragment);
+  pictureListElement.appendChild(pictureFragment);
 };
 
-const photos = [];
+const onRenderUploadingError = () => {
+  show(errorElement);
+};
 
-for (let i = 1; i <= consts.PHOTO_COUNT; i++) {
-  photos.push(createPhotoItem(i));
-}
+const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
 
-const pictureTemplate = document
-  .querySelector('#picture')
-  .content
-  .querySelector('.picture');
+loadPictures();
 
-const pictureListContainer = document.querySelector('.pictures');
-
-renderPictureList(pictureListContainer, pictureTemplate, photos);
+updateUploadingButton.addEventListener('click', () => {
+  hide(errorElement);
+  loadPictures();
+});

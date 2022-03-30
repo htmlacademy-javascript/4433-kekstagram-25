@@ -9,6 +9,12 @@
   color: red;
   text-transform: none;
   margin-top: 5px;
+  text-align: center;
+}
+
+.img-upload__overlay--error {
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .text__hashtags {
