@@ -1,4 +1,4 @@
-import {open, close} from './popup.js';
+import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey, removeValue} from './util.js';
 import {hashtagsInput, descriptionInput} from './form.js';
 import {sliderElement, sliderValueElement, imagePreviewElement, setDefaultEffects} from './set-photo-effects.js';
@@ -9,7 +9,7 @@ const uploadFileInput = document.querySelector('#upload-file');
 const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
 
 const onClosingUploadingPopup = () => {
-  close(popupElement);
+  closePopup(popupElement);
 
   removeValue(uploadFileInput);
   removeValue(hashtagsInput);
@@ -36,7 +36,12 @@ const onPopupEscKeydown = (evt) => {
 };
 
 uploadFileInput.addEventListener('change', () => {
-  open(popupElement);
+  openPopup(popupElement);
+  document.addEventListener('keydown', onPopupEscKeydown);
+});
+
+uploadFileInput.addEventListener('change', () => {
+  openPopup(popupElement);
   document.addEventListener('keydown', onPopupEscKeydown);
 });
 

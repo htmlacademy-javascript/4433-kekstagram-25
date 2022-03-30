@@ -1,6 +1,6 @@
 import {openPreviewPopup} from './popup-preview.js';
 import {getData} from './get-data.js';
-import {show, hide} from './util.js';
+import {showElement, hideElement} from './util.js';
 
 const pictureTemplate = document
   .querySelector('#picture')
@@ -9,7 +9,7 @@ const pictureTemplate = document
 
 const pictureListElement = document.querySelector('.pictures');
 const errorElement = document.querySelector('.img-upload__overlay--error');
-const updateUploadingButton = document.querySelector('.img-upload__button');
+const reloadingButton = document.querySelector('.img-upload__button-reload');
 
 const renderPictureList = (pictures) => {
   const pictureFragment = document.createDocumentFragment();
@@ -33,14 +33,14 @@ const renderPictureList = (pictures) => {
 };
 
 const onRenderUploadingError = () => {
-  show(errorElement);
+  showElement(errorElement);
 };
 
 const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
 
 loadPictures();
 
-updateUploadingButton.addEventListener('click', () => {
-  hide(errorElement);
+reloadingButton.addEventListener('click', () => {
+  hideElement(errorElement);
   loadPictures();
 });

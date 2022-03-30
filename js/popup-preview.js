@@ -1,5 +1,5 @@
 import {renderCommentList, clearCommentList} from './comment-list.js';
-import {open, close} from './popup.js';
+import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey} from './util.js';
 
 const popupElement = document.querySelector('.big-picture');
@@ -11,13 +11,13 @@ const popupCloseButton = popupElement.querySelector('.big-picture__cancel');
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    close(popupElement);
+    closePopup(popupElement);
     clearCommentList();
   }
 };
 
 const openPreviewPopup = (url, likes, comments, description) => {
-  open(popupElement);
+  openPopup(popupElement);
 
   bigImageElement.src = url;
   likesElement.textContent = likes;
@@ -29,7 +29,7 @@ const openPreviewPopup = (url, likes, comments, description) => {
 };
 
 popupCloseButton.addEventListener('click', () => {
-  close(popupElement);
+  closePopup(popupElement);
   clearCommentList();
   document.addEventListener('keydown', onPopupEscKeydown);
 });

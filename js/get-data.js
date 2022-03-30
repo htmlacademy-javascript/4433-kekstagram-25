@@ -1,5 +1,7 @@
+import consts from './consts.js';
+
 const getData = (onSuccess, onError) => fetch(
-  'https://25.javascript.pages.academy/kekstagram/data',
+  consts.GET_DATA_URL,
   {
     method: 'GET',
     credentials: 'same-origin',

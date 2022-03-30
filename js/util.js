@@ -5,11 +5,11 @@ const checkCommentLength = (comment) => {
   return commentLength <= consts.COMMENT_MAX_LENGTH;
 };
 
-const show = (element) => {
+const showElement = (element) => {
   element.classList.remove('hidden');
 };
 
-const hide = (element) => {
+const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
@@ -20,4 +20,4 @@ const removeValue = (input) => {
   input.value = '';
 };
 
-export {checkCommentLength, show, hide, isEscapeKey, removeValue};
+export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue};

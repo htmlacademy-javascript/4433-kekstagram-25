@@ -1,13 +1,13 @@
-import {hide, show} from './util.js';
+import {hideElement, showElement} from './util.js';
 
-const close = (popupElement) => {
-  hide(popupElement);
+const closePopup = (popupElement) => {
+  hideElement(popupElement);
   document.body.classList.remove('modal-open');
 };
 
-const open = (popupElement) => {
-  show(popupElement);
+const openPopup = (popupElement) => {
+  showElement(popupElement);
   document.body.classList.add('modal-open');
 };
 
-export {open, close};
+export {openPopup, closePopup};
