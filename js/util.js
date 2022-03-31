@@ -24,4 +24,15 @@ const shuffleArray = (array) => {
   array.sort(() => Math.random() - 0.5);
 };
 
-export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue, shuffleArray};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+
+  const foo = (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+
+  return foo();
+};
+
+export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue, shuffleArray, debounce};

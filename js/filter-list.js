@@ -1,5 +1,6 @@
 import {renderPictureList} from './photo-list.js';
-import {shuffleArray} from './util.js';
+import {shuffleArray, debounce} from './util.js';
+import consts from './consts.js';
 
 const ACTIVE_FILTER_BUTTON_CLASS = 'img-filters__button--active';
 
@@ -9,13 +10,44 @@ const filterButtons = document.querySelectorAll('.img-filters__button');
 
 let photos = {};
 
-const getPhotoArray = (data) => {
-  photos = data;
-  showFilterList();
+const showFilter = () => {
+  filterContainerElement.classList.remove('img-filters--inactive');
 };
 
-const showFilterList = () => {
-  filterContainerElement.classList.remove('img-filters--inactive');
+const getPhotoArray = (data) => {
+  photos = data;
+  showFilter();
+};
+
+const compareLikesCount = (picture1, picture2) => picture1.likes - picture2.likes;
+
+const applyDefaultFilter = () => {
+  renderPictureList(photos);
+};
+
+const applyRandomFilter = () => {
+  const copyArray = photos.slice();
+  shuffleArray(copyArray);
+  renderPictureList(copyArray.slice(photos.length - consts.RANDOM_PHOTO_COUNT));
+};
+
+const applyDiscussedFilter = () => {
+  const copyArray = photos.slice().sort(compareLikesCount);
+  renderPictureList(copyArray);
+};
+
+const onFilterButtonClick = (currentFilterType) => {
+  switch(currentFilterType) {
+    case 'filter-default':
+      applyDefaultFilter();
+      break;
+    case 'filter-random':
+      applyRandomFilter();
+      break;
+    case 'filter-discussed':
+      applyDiscussedFilter();
+      break;
+  }
 };
 
 filterListElement.addEventListener('click', (evt) => {
@@ -31,37 +63,11 @@ filterListElement.addEventListener('click', (evt) => {
     activeFilterButton.classList.add(ACTIVE_FILTER_BUTTON_CLASS);
     const currentFilterType = activeFilterButton.id;
 
-    switch(currentFilterType){
-      case 'filter-default':
-        applyDefaultFilter(photos);
-        break;
-      case 'filter-random':
-        applyRandomFilter(photos);
-        break;
-      case 'filter-discussed':
-        applyDiscussedFilter(photos);
-        break;
-    }
+    debounce(
+      () => onFilterButtonClick(currentFilterType),
+      consts.RERENDER_DELAY,
+    );
   }
 });
 
-const compareLikesCount = (picture1, picture2) => {
-  return picture1.likes - picture2.likes;
-}
-
-const applyDefaultFilter = (photos) => {
-  renderPictureList(photos);
-};
-
-const applyRandomFilter = (photos) => {
-  const copyArray = photos.slice();
-  shuffleArray(copyArray);
-  renderPictureList(copyArray.slice(photos.length - 10));
-};
-
-const applyDiscussedFilter = (photos) => {
-  const copyArray = photos.slice().sort(compareLikesCount);
-  renderPictureList(copyArray);
-};
-
-export {showFilterList, getPhotoArray};
+export {showFilter, getPhotoArray};
