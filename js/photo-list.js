@@ -11,7 +11,16 @@ const pictureListElement = document.querySelector('.pictures');
 const errorElement = document.querySelector('.img-upload__overlay--error');
 const reloadingButton = document.querySelector('.img-upload__button-reload');
 
+const clearPictureList = () => {
+  const pictures = document.querySelectorAll('.picture');
+
+  pictures.forEach(picure => {
+    picure.remove();
+  });
+};
+
 const renderPictureList = (pictures) => {
+  clearPictureList();
   const pictureFragment = document.createDocumentFragment();
 
   pictures.forEach((photo) => {
@@ -44,3 +53,5 @@ reloadingButton.addEventListener('click', () => {
   hideElement(errorElement);
   loadPictures();
 });
+
+export {renderPictureList}

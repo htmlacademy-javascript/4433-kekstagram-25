@@ -20,4 +20,8 @@ const removeValue = (input) => {
   input.value = '';
 };
 
-export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue};
+const shuffleArray = (array) => {
+  array.sort(() => Math.random() - 0.5);
+};
+
+export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue, shuffleArray};
