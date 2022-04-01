@@ -14,7 +14,7 @@ const reloadingButton = document.querySelector('.img-upload__button-reload');
 const clearPictureList = () => {
   const pictures = document.querySelectorAll('.picture');
 
-  pictures.forEach(picure => {
+  pictures.forEach((picure) => {
     picure.remove();
   });
 };
