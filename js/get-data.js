@@ -1,8 +1,6 @@
 import consts from './consts.js';
 import {getPhotoArray} from './filter-list.js';
 
-let photos = {};
-
 const getData = (onSuccess, onError) => fetch(
   consts.GET_DATA_URL,
   {

@@ -54,4 +54,4 @@ reloadingButton.addEventListener('click', () => {
   loadPictures();
 });
 
-export {renderPictureList}
+export {renderPictureList};
