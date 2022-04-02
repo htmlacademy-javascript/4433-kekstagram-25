@@ -19,5 +19,11 @@ export default {
 
   SCALE_STEP: 25,
   MAX_SCALE: 100,
-  MIN_SCALE: 25
+  MIN_SCALE: 25,
+
+  GET_DATA_URL: 'https://25.javascript.pages.academy/kekstagram/data',
+  SEND_DATA_URL: 'https://25.javascript.pages.academy/kekstagram',
+
+  RERENDER_DELAY: 500,
+  RANDOM_PHOTO_COUNT: 10
 };

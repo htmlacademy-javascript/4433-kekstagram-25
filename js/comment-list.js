@@ -1,4 +1,4 @@
-import {hide} from './util.js';
+import {hideElement} from './util.js';
 
 const listContainerElement = document.querySelector('.social__comments');
 const commentElement = document.querySelector('.social__comment');
@@ -23,8 +23,8 @@ const renderCommentList = (comments) => {
   });
 
   countTotalElement.textContent = comments.length;
-  hide(countElement);
-  hide(loaderElememt);
+  hideElement(countElement);
+  hideElement(loaderElememt);
 
   listContainerElement.innerHTML = '';
   listContainerElement.append(fragment);

@@ -17,6 +17,29 @@
   font-size: 1.5rem;
 }
 
+.img-upload__error--main {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.img-upload__button {
+  padding: 0;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+  text-decoration: underline;
+}
+
+.img-upload__button:hover {
+  text-decoration: none;
+}
+
+.img-upload__overlay--error {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 .text__hashtags {
   margin-bottom: 0;
 }

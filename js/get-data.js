@@ -1,5 +1,8 @@
+import consts from './consts.js';
+import {getPhotoArray} from './filter-list.js';
+
 const getData = (onSuccess, onError) => fetch(
-  'https://25.javascript.pages.academy/kekstagram/data',
+  consts.GET_DATA_URL,
   {
     method: 'GET',
     credentials: 'same-origin',
@@ -7,6 +10,7 @@ const getData = (onSuccess, onError) => fetch(
 )
   .then((response) => response.json())
   .then((data) => {
+    getPhotoArray(data);
     onSuccess(data);
   })
   .catch((err) => {

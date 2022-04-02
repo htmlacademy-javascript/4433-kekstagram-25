@@ -1,9 +1,10 @@
 import {onSendingForm} from './messages.js';
-import {close} from './popup.js';
+import {closePopup} from './popup.js';
 import {popupElement} from './popup-uploading.js';
+import consts from './consts.js';
 
 const sendData = (formData) => fetch(
-  'https://25.javascript.pages.academy/kekstagram',
+  consts.SEND_DATA_URL,
   {
     method: 'POST',
     body: formData,
@@ -11,7 +12,7 @@ const sendData = (formData) => fetch(
 )
   .then((response) => {
     if (response.ok) {
-      close(popupElement);
+      closePopup(popupElement);
       onSendingForm('success');
     } else {
       close(popupElement);
@@ -19,7 +20,7 @@ const sendData = (formData) => fetch(
     }
   })
   .catch(() => {
-    close(popupElement);
+    closePopup(popupElement);
     onSendingForm('error');
   });
 
