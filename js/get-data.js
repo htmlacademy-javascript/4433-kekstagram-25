@@ -2,7 +2,7 @@ import consts from './consts.js';
 import {getPhotoArray} from './filter-list.js';
 
 const getData = (onSuccess, onError) => fetch(
-  consts.GET_DATA_URL,
+  `${consts.API_DATA_URL}/data`,
   {
     method: 'GET',
     credentials: 'same-origin',

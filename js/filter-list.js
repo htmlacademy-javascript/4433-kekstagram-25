@@ -8,6 +8,8 @@ const filterContainerElement = document.querySelector('.img-filters');
 const filterListElement = document.querySelector('.img-filters__form');
 const filterButtons = document.querySelectorAll('.img-filters__button');
 
+const FilterTypes = { DEFAULT: 'filter-default', RANDOM: 'filter-random', DISCUSSED: 'filter-discussed' };
+
 let photos = {};
 
 const showFilter = () => {
@@ -38,20 +40,20 @@ const applyDiscussedFilter = () => {
 
 const onFilterButtonClick = (currentFilterType) => {
   switch(currentFilterType) {
-    case 'filter-default':
+    case FilterTypes.DEFAULT:
       applyDefaultFilter();
       break;
-    case 'filter-random':
+    case FilterTypes.RANDOM:
       applyRandomFilter();
       break;
-    case 'filter-discussed':
+    case FilterTypes.DISCUSSED:
       applyDiscussedFilter();
       break;
   }
 };
 
 filterListElement.addEventListener('click', (evt) => {
-  if (evt.target.tagName === 'BUTTON') {
+  if (evt.target.classList.contains('img-filters__button')) {
     filterButtons.forEach((filterButton) => {
       filterButton.classList.remove(ACTIVE_FILTER_BUTTON_CLASS);
       filterButton.disabled = '';

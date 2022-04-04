@@ -4,7 +4,7 @@ import {popupElement} from './popup-uploading.js';
 import consts from './consts.js';
 
 const sendData = (formData) => fetch(
-  consts.SEND_DATA_URL,
+  consts.API_DATA_URL,
   {
     method: 'POST',
     body: formData,
