@@ -24,5 +24,7 @@ export default {
   API_DATA_URL: 'https://25.javascript.pages.academy/kekstagram',
 
   RERENDER_DELAY: 500,
-  RANDOM_PHOTO_COUNT: 10
+  RANDOM_PHOTO_COUNT: 10,
+
+  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png']
 };

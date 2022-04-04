@@ -1,12 +1,21 @@
 import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey, removeValue} from './util.js';
 import {hashtagsInput, descriptionInput} from './form.js';
-import {sliderElement, sliderValueElement, imagePreviewElement, setDefaultEffects} from './set-photo-effects.js';
+import {sliderElement, sliderValueElement, setDefaultEffects} from './set-photo-effects.js';
 import {scalingInput, scalePhotoPreview} from './scale-photo.js';
+import consts from './consts.js';
 
 const popupElement = document.querySelector('.img-upload__overlay--uploading_form');
 const uploadFileInput = document.querySelector('#upload-file');
 const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
+const imagePreviewElement = document.querySelector('.img-upload__preview img');
+const effectsPreviewElements = document.querySelectorAll('.effects__preview');
+
+const setImageEffectBackground = (url) => {
+  effectsPreviewElements.forEach((element) => {
+    element.style.backgroundImage = `url(${url})`;
+  });
+};
 
 const onClosingUploadingPopup = () => {
   closePopup(popupElement);
@@ -22,6 +31,7 @@ const onClosingUploadingPopup = () => {
   sliderElement.setAttribute('disabled', true);
   imagePreviewElement.classList = '';
   imagePreviewElement.style.filter = '';
+  setImageEffectBackground('');
   setDefaultEffects();
 };
 
@@ -36,8 +46,18 @@ const onPopupEscKeydown = (evt) => {
 };
 
 uploadFileInput.addEventListener('change', () => {
-  openPopup(popupElement);
-  document.addEventListener('keydown', onPopupEscKeydown);
+  const file = uploadFileInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = consts.FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    const fileUrl = URL.createObjectURL(file);
+    imagePreviewElement.src = fileUrl;
+    setImageEffectBackground(fileUrl);
+
+    openPopup(popupElement);
+    document.addEventListener('keydown', onPopupEscKeydown);
+  }
 });
 
 uploadFileInput.addEventListener('change', () => {
