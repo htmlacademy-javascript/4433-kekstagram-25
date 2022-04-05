@@ -1,4 +1,4 @@
-import {renderCommentList, clearCommentList} from './comment-list.js';
+import {clearCommentList, getAllComments} from './comment-list.js';
 import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey} from './util.js';
 
@@ -23,7 +23,7 @@ const openPreviewPopup = (url, likes, comments, description) => {
   likesElement.textContent = likes;
   imageDescriptionElement.textContent = description;
 
-  renderCommentList(comments);
+  getAllComments(comments);
 
   document.addEventListener('keydown', onPopupEscKeydown);
 };

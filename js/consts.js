@@ -1,5 +1,7 @@
 export default {
   COMMENT_MAX_LENGTH: 140,
+  COMMENTS_COUNT_ON_LIST: 5,
+
   ALERT_SHOW_TIME: 5000,
   SEPIA_MIN_VALUE: 0,
   SEPIA_MAX_VALUE: 1,
@@ -21,9 +23,10 @@ export default {
   MAX_SCALE: 100,
   MIN_SCALE: 25,
 
-  GET_DATA_URL: 'https://25.javascript.pages.academy/kekstagram/data',
-  SEND_DATA_URL: 'https://25.javascript.pages.academy/kekstagram',
+  API_DATA_URL: 'https://25.javascript.pages.academy/kekstagram',
 
   RERENDER_DELAY: 500,
-  RANDOM_PHOTO_COUNT: 10
+  RANDOM_PHOTO_COUNT: 10,
+
+  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png']
 };
