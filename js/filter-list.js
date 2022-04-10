@@ -56,11 +56,11 @@ filterListEl.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
     filterButtonsEl.forEach((filterButton) => {
       filterButton.classList.remove(ACTIVE_FILTER_BUTTON_CLASS);
-      filterButton.disabled = '';
+      filterButton.removeAttribute('disabled');
     });
 
     const activeFilterButton = evt.target;
-    activeFilterButton.disabled = 'disabled';
+    activeFilterButton.setAttribute('disabled', true);
 
     activeFilterButton.classList.add(ACTIVE_FILTER_BUTTON_CLASS);
     const currentFilterType = activeFilterButton.id;

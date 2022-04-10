@@ -38,12 +38,12 @@ const validateHashtags = (value) => {
 };
 
 const blockSubmitButton = () => {
-  submitButtonEl.disabled = true;
+  submitButtonEl.setAttribute('disabled', true);
   submitButtonEl.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
-  submitButtonEl.disabled = false;
+  submitButtonEl.removeAttribute('disabled');
   submitButtonEl.textContent = 'Опубликовать';
 };
 
