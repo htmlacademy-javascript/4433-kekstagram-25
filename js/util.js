@@ -27,12 +27,12 @@ const shuffleArray = (array) => {
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
-  const foo = (...rest) => {
+  const createTimeuot = (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 
-  return foo();
+  return createTimeuot();
 };
 
 export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue, shuffleArray, debounce};

@@ -1,5 +1,6 @@
 import {checkCommentLength} from './util.js';
 import {sendData} from './send-data.js';
+import consts from './consts.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
@@ -16,11 +17,20 @@ const pristine = window.Pristine(formElement, {
 }, false);
 
 const validateHashtags = (value) => {
-  const hashtags = value.split(' ');
+  const hashtags = value.toLowerCase().split(' ');
   let isValidate = true;
 
   if (value.length > 0) {
-    hashtags.forEach((hashtag) => {
+    hashtags.forEach((hashtag, index) => {
+      const prevHashtag = hashtags[index - 1];
+      if (hashtag.length > consts.HASHTAG_MAX_LENGTH) {
+        isValidate = false;
+      }
+
+      if (index > 0 && prevHashtag && hashtag === prevHashtag) {
+        isValidate = false;
+      }
+
       isValidate = isValidate && re.test(hashtag);
     });
   }
@@ -40,7 +50,7 @@ const unblockSubmitButton = () => {
 pristine.addValidator(
   hashtagsInput,
   validateHashtags,
-  'Хэштег должен начинаться с # и состоять только из букв и цифр'
+  'Неверный формат хэштега'
 );
 
 pristine.addValidator(
