@@ -4,16 +4,16 @@ import consts from './consts.js';
 
 const ACTIVE_FILTER_BUTTON_CLASS = 'img-filters__button--active';
 
-const filterContainerElement = document.querySelector('.img-filters');
-const filterListElement = document.querySelector('.img-filters__form');
-const filterButtons = document.querySelectorAll('.img-filters__button');
+const filterContainerEl = document.querySelector('.img-filters');
+const filterListEl = document.querySelector('.img-filters__form');
+const filterButtonsEl = document.querySelectorAll('.img-filters__button');
 
 const FilterTypes = { DEFAULT: 'filter-default', RANDOM: 'filter-random', DISCUSSED: 'filter-discussed' };
 
 let photos = {};
 
 const showFilter = () => {
-  filterContainerElement.classList.remove('img-filters--inactive');
+  filterContainerEl.classList.remove('img-filters--inactive');
 };
 
 const getPhotoArray = (data) => {
@@ -52,9 +52,9 @@ const onFilterButtonClick = (currentFilterType) => {
   }
 };
 
-filterListElement.addEventListener('click', (evt) => {
+filterListEl.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
-    filterButtons.forEach((filterButton) => {
+    filterButtonsEl.forEach((filterButton) => {
       filterButton.classList.remove(ACTIVE_FILTER_BUTTON_CLASS);
       filterButton.disabled = '';
     });

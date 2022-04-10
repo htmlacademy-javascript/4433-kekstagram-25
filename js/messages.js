@@ -9,21 +9,21 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-const createMessageElement = (type) => {
+const createMessageEl = (type) => {
   const template = document
     .querySelector(`#${type}`)
     .content
     .querySelector(`.${type}`);
 
-  const messageElement = template.cloneNode(true);
-  messageElement.classList.add('hidden');
-  document.body.append(messageElement);
+  const messageEl = template.cloneNode(true);
+  messageEl.classList.add('hidden');
+  document.body.append(messageEl);
 
-  const messageButton = messageElement.querySelector('button');
+  const messageButton = messageEl.querySelector('button');
 
   messageButton.addEventListener('click', () => {
     if (type === 'success') {
-      hideElement(messageElement);
+      hideElement(messageEl);
       document.removeEventListener('keydown', onPopupEscKeydown);
     }
   });
@@ -31,12 +31,12 @@ const createMessageElement = (type) => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-createMessageElement('success');
-createMessageElement('error');
+createMessageEl('success');
+createMessageEl('error');
 
 const onSendingForm = (type) => {
-  const messageElement = document.querySelector(`.${type}`);
-  showElement(messageElement);
+  const messageEl = document.querySelector(`.${type}`);
+  showElement(messageEl);
 };
 
 export {onSendingForm};

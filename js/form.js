@@ -2,13 +2,13 @@ import {checkCommentLength} from './util.js';
 import {sendData} from './send-data.js';
 import consts from './consts.js';
 
-const formElement = document.querySelector('.img-upload__form');
+const formEl = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
-const hashtagsInput = formElement.querySelector('#hashtags');
-const descriptionInput = formElement.querySelector('#description');
-const submitButton = formElement.querySelector('.img-upload__submit');
+const hashtagsInputEl = formEl.querySelector('#hashtags');
+const descriptionInputEl = formEl.querySelector('#description');
+const submitButtonEl = formEl.querySelector('.img-upload__submit');
 
-const pristine = window.Pristine(formElement, {
+const pristine = window.Pristine(formEl, {
   classTo: 'img-upload__item',
   errorClass: 'img-upload__item--invalid',
   errorTextParent: 'img-upload__item',
@@ -38,28 +38,28 @@ const validateHashtags = (value) => {
 };
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButtonEl.disabled = true;
+  submitButtonEl.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonEl.disabled = false;
+  submitButtonEl.textContent = 'Опубликовать';
 };
 
 pristine.addValidator(
-  hashtagsInput,
+  hashtagsInputEl,
   validateHashtags,
   'Неверный формат хэштега'
 );
 
 pristine.addValidator(
-  descriptionInput,
+  descriptionInputEl,
   checkCommentLength,
   'Длина комментария должна быть не больше 140 символов'
 );
 
-formElement.addEventListener('submit', (evt) => {
+formEl.addEventListener('submit', (evt) => {
   const isValidate = pristine.validate();
 
   if (isValidate) {
@@ -75,4 +75,4 @@ formElement.addEventListener('submit', (evt) => {
 });
 
 
-export {hashtagsInput, descriptionInput, unblockSubmitButton};
+export {hashtagsInputEl, descriptionInputEl, unblockSubmitButton};

@@ -7,9 +7,9 @@ const pictureTemplate = document
   .content
   .querySelector('.picture');
 
-const pictureListElement = document.querySelector('.pictures');
-const errorElement = document.querySelector('.img-upload__overlay--error');
-const reloadingButton = document.querySelector('.img-upload__button-reload');
+const pictureListEl = document.querySelector('.pictures');
+const errorEl = document.querySelector('.img-upload__overlay--error');
+const reloadingButtonEl = document.querySelector('.img-upload__button-reload');
 
 const clearPictureList = () => {
   const pictures = document.querySelectorAll('.picture');
@@ -24,33 +24,33 @@ const renderPictureList = (pictures) => {
   const pictureFragment = document.createDocumentFragment();
 
   pictures.forEach((photo) => {
-    const pictureItem = pictureTemplate.cloneNode(true);
+    const pictureItemEl = pictureTemplate.cloneNode(true);
 
-    pictureItem.querySelector('.picture__img').src = photo.url;
-    pictureItem.querySelector('.picture__likes').textContent = photo.likes;
-    pictureItem.querySelector('.picture__comments').textContent = photo.comments.length;
+    pictureItemEl.querySelector('.picture__img').src = photo.url;
+    pictureItemEl.querySelector('.picture__likes').textContent = photo.likes;
+    pictureItemEl.querySelector('.picture__comments').textContent = photo.comments.length;
 
-    pictureItem.addEventListener('click', (evt) => {
+    pictureItemEl.addEventListener('click', (evt) => {
       evt.preventDefault();
       openPreviewPopup(photo.url, photo.likes, photo.comments, photo.description);
     });
 
-    pictureFragment.appendChild(pictureItem);
+    pictureFragment.appendChild(pictureItemEl);
   });
 
-  pictureListElement.appendChild(pictureFragment);
+  pictureListEl.appendChild(pictureFragment);
 };
 
 const onRenderUploadingError = () => {
-  showElement(errorElement);
+  showElement(errorEl);
 };
 
 const loadPictures = () => getData(renderPictureList, onRenderUploadingError);
 
 loadPictures();
 
-reloadingButton.addEventListener('click', () => {
-  hideElement(errorElement);
+reloadingButtonEl.addEventListener('click', () => {
+  hideElement(errorEl);
   loadPictures();
 });
 

@@ -1,43 +1,43 @@
 import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey, removeValue} from './util.js';
-import {hashtagsInput, descriptionInput} from './form.js';
-import {sliderElement, sliderValueElement, setDefaultEffects} from './set-photo-effects.js';
-import {scalingInput, scalePhotoPreview} from './scale-photo.js';
+import {hashtagsInputEl, descriptionInputEl} from './form.js';
+import {sliderEl, sliderValueEl, setDefaultEffects} from './set-photo-effects.js';
+import {scalingInputEl, scalePhotoPreview} from './scale-photo.js';
 import consts from './consts.js';
 
-const popupElement = document.querySelector('.img-upload__overlay--uploading_form');
-const uploadFileInput = document.querySelector('#upload-file');
-const popupCloseButton = popupElement.querySelector('.img-upload__cancel');
-const imagePreviewElement = document.querySelector('.img-upload__preview img');
-const effectsPreviewElements = document.querySelectorAll('.effects__preview');
+const popupEl = document.querySelector('.img-upload__overlay--uploading_form');
+const uploadFileInputEl = document.querySelector('#upload-file');
+const popupCloseButtonEl = popupEl.querySelector('.img-upload__cancel');
+const imagePreviewEl = document.querySelector('.img-upload__preview img');
+const effectsPreviewEl = document.querySelectorAll('.effects__preview');
 
 const setImageEffectBackground = (url) => {
-  effectsPreviewElements.forEach((element) => {
+  effectsPreviewEl.forEach((element) => {
     element.style.backgroundImage = `url(${url})`;
   });
 };
 
 const onClosingUploadingPopup = () => {
-  closePopup(popupElement);
+  closePopup(popupEl);
 
-  removeValue(uploadFileInput);
-  removeValue(hashtagsInput);
-  removeValue(descriptionInput);
+  removeValue(uploadFileInputEl);
+  removeValue(hashtagsInputEl);
+  removeValue(descriptionInputEl);
 
-  scalingInput.value = '100%';
+  scalingInputEl.value = '100%';
   scalePhotoPreview(100);
 
-  removeValue(sliderValueElement);
-  sliderElement.setAttribute('disabled', true);
-  imagePreviewElement.classList = '';
-  imagePreviewElement.style.filter = '';
+  removeValue(sliderValueEl);
+  sliderEl.setAttribute('disabled', true);
+  imagePreviewEl.classList = '';
+  imagePreviewEl.style.filter = '';
   setImageEffectBackground('');
   setDefaultEffects();
 };
 
 const onPopupEscKeydown = (evt) => {
   const activeElement = document.activeElement;
-  const isPopupInputActive = (activeElement === hashtagsInput) || (activeElement === descriptionInput);
+  const isPopupInputActive = (activeElement === hashtagsInputEl) || (activeElement === descriptionInputEl);
 
   if (isEscapeKey(evt) && !isPopupInputActive) {
     evt.preventDefault();
@@ -45,29 +45,29 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-uploadFileInput.addEventListener('change', () => {
-  const file = uploadFileInput.files[0];
+uploadFileInputEl.addEventListener('change', () => {
+  const file = uploadFileInputEl.files[0];
   const fileName = file.name.toLowerCase();
   const matches = consts.FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
     const fileUrl = URL.createObjectURL(file);
-    imagePreviewElement.src = fileUrl;
+    imagePreviewEl.src = fileUrl;
     setImageEffectBackground(fileUrl);
 
-    openPopup(popupElement);
+    openPopup(popupEl);
     document.addEventListener('keydown', onPopupEscKeydown);
   }
 });
 
-uploadFileInput.addEventListener('change', () => {
-  openPopup(popupElement);
+uploadFileInputEl.addEventListener('change', () => {
+  openPopup(popupEl);
   document.addEventListener('keydown', onPopupEscKeydown);
 });
 
-popupCloseButton.addEventListener('click', () => {
+popupCloseButtonEl.addEventListener('click', () => {
   onClosingUploadingPopup();
   document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
-export {popupElement};
+export {popupEl};
