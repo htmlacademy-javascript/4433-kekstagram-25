@@ -5,6 +5,7 @@ const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideElement(document.querySelector('.success'));
+    hideElement(document.querySelector('.error'));
   }
 };
 
