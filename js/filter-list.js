@@ -55,7 +55,9 @@ const onFilterButtonClick = (currentFilterType) => {
 filterListEl.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
     filterButtonsEl.forEach((filterButton) => {
-      filterButton.classList.remove(ACTIVE_FILTER_BUTTON_CLASS);
+      if (filterButton.classList.contains(ACTIVE_FILTER_BUTTON_CLASS)) {
+        filterButton.classList.remove(ACTIVE_FILTER_BUTTON_CLASS);
+      }
       filterButton.removeAttribute('disabled');
     });
 
