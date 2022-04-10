@@ -13,7 +13,7 @@ const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === consts.ESCAPE_KEY;
 
 const removeValue = (input) => {
   input.innerHtml = '';

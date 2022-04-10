@@ -29,5 +29,6 @@ export default {
   RERENDER_DELAY: 500,
   RANDOM_PHOTO_COUNT: 10,
 
-  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png']
+  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png'],
+  ESCAPE_KEY: 'Escape'
 };
