@@ -9,7 +9,8 @@
   color: red;
   text-transform: none;
   margin-top: 5px;
-  text-align: center;
+  text-align: left;
+  padding-left: 68px;
 }
 
 .img-upload__overlay--error {
@@ -18,6 +19,7 @@
 }
 
 .img-upload__error--main {
+  text-align: center;
   color: #fff;
   margin-bottom: 20px;
 }

@@ -1,8 +1,10 @@
 import {onSendingForm} from './messages.js';
 import {closePopup} from './popup.js';
-import {popupElement} from './popup-uploading.js';
+import {popupEl} from './popup-uploading.js';
 import {unblockSubmitButton} from './form.js';
 import consts from './consts.js';
+
+const FormResultsTypes = { SUCCESS: 'success', ERROR: 'error' };
 
 const sendData = (formData) => fetch(
   consts.API_DATA_URL,
@@ -14,16 +16,16 @@ const sendData = (formData) => fetch(
   .then((response) => {
     if (response.ok) {
       unblockSubmitButton();
-      closePopup(popupElement);
-      onSendingForm('success');
+      closePopup(popupEl);
+      onSendingForm(FormResultsTypes.SUCCESS);
     } else {
-      closePopup(popupElement);
-      onSendingForm('error');
+      closePopup(popupEl);
+      onSendingForm(FormResultsTypes.ERROR);
     }
   })
   .catch(() => {
-    closePopup(popupElement);
-    onSendingForm('error');
+    closePopup(popupEl);
+    onSendingForm(FormResultsTypes.ERROR);
   });
 
 export {sendData};

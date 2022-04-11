@@ -1,6 +1,7 @@
 export default {
   COMMENT_MAX_LENGTH: 140,
   COMMENTS_COUNT_ON_LIST: 5,
+  HASHTAG_MAX_LENGTH: 20,
 
   ALERT_SHOW_TIME: 5000,
   SEPIA_MIN_VALUE: 0,
@@ -28,5 +29,12 @@ export default {
   RERENDER_DELAY: 500,
   RANDOM_PHOTO_COUNT: 10,
 
-  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png']
+  FILE_TYPES: ['gif', 'jpg', 'jpeg', 'png'],
+  ESCAPE_KEY: 'Escape',
+
+  UPLOADING_BUTTON_TEXT: 'Опубликовать',
+  UPLOADING_BUTTON_TEXT_PROGRESS: 'Публикую...',
+
+  HASHTAG_ERROR_MESSAGE: 'Ошибка формата хэштега: <br/>— не более 5 хэштегов<br/>— хэштег не более 20 символов<br/>— хэштеги не должны повторяться<br/>— должен состоять из букв или цифр и начинаться с #',
+  COMMENT_ERROR_MESSAGE: 'Длина комментария должна быть не больше 140 символов'
 };

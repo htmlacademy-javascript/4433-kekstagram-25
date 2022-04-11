@@ -1,28 +1,37 @@
 import {showElement, hideElement} from './util.js';
 import {isEscapeKey} from './util.js';
 
+const MessageTypes = { SUCCESS: 'success', ERROR: 'error' };
+
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideElement(document.querySelector('.success'));
+
+    for (const index in MessageTypes) {
+      const messageEl = document.querySelector(`.${MessageTypes[index]}`);
+      if (!messageEl.classList.contains('hidden')) {
+        hideElement(messageEl);
+        document.removeEventListener('keydown', onPopupEscKeydown);
+      }
+    }
   }
 };
 
-const createMessageElement = (type) => {
+const createMessageEl = (type) => {
   const template = document
     .querySelector(`#${type}`)
     .content
     .querySelector(`.${type}`);
 
-  const messageElement = template.cloneNode(true);
-  messageElement.classList.add('hidden');
-  document.body.append(messageElement);
+  const messageEl = template.cloneNode(true);
+  messageEl.classList.add('hidden');
+  document.body.append(messageEl);
 
-  const messageButton = messageElement.querySelector('button');
+  const messageButton = messageEl.querySelector('button');
 
   messageButton.addEventListener('click', () => {
-    if (type === 'success') {
-      hideElement(messageElement);
+    if (type === MessageTypes.SUCCESS) {
+      hideElement(messageEl);
       document.removeEventListener('keydown', onPopupEscKeydown);
     }
   });
@@ -30,12 +39,12 @@ const createMessageElement = (type) => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-createMessageElement('success');
-createMessageElement('error');
+createMessageEl(MessageTypes.SUCCESS);
+createMessageEl(MessageTypes.ERROR);
 
 const onSendingForm = (type) => {
-  const messageElement = document.querySelector(`.${type}`);
-  showElement(messageElement);
+  const messageEl = document.querySelector(`.${type}`);
+  showElement(messageEl);
 };
 
 export {onSendingForm};

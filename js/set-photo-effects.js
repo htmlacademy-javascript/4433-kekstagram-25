@@ -1,14 +1,25 @@
 import consts from './consts.js';
+import {hideElement, showElement} from './util.js';
 
-const imagePreviewElement = document.querySelector('.img-upload__preview img');
-const effectListInputs = document.querySelectorAll('.effects__radio');
+const imagePreviewEl = document.querySelector('.img-upload__preview img');
+const effectListInputEls = document.querySelectorAll('.effects__radio');
 
-const sliderElement = document.querySelector('.effect-level__slider');
-const sliderValueElement = document.querySelector('.effect-level__value');
+const sliderEl = document.querySelector('.effect-level__slider');
+const sliderValueEl = document.querySelector('.effect-level__value');
+const sliderContainerEl = document.querySelector('.img-upload__effect-level');
 
-let selectedEffect = 'none';
+const EffectTypes = {
+  NONE: 'none',
+  CHROME: 'chrome',
+  SEPIA: 'sepia',
+  MARVIN: 'marvin',
+  PHOBOS: 'phobos',
+  HEAT: 'heat'
+};
 
-noUiSlider.create(sliderElement, {
+let selectedEffect = EffectTypes.NONE;
+
+noUiSlider.create(sliderEl, {
   range: {
     min: 0,
     max: 100,
@@ -18,119 +29,124 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-sliderElement.setAttribute('disabled', true);
+sliderEl.setAttribute('disabled', true);
+hideElement(sliderContainerEl);
 
 const updateSliderOptions = (effectType) => {
-  sliderElement.removeAttribute('disabled');
+  sliderEl.removeAttribute('disabled');
+  if (sliderContainerEl.classList.contains('hidden')) {
+    showElement(sliderContainerEl);
+  }
 
   switch (effectType) {
-    case 'chrome':
-    case 'sepia':
-      sliderElement.noUiSlider.updateOptions({
+    case EffectTypes.CHROME:
+    case EffectTypes.SEPIA:
+      sliderEl.noUiSlider.updateOptions({
         range: {
           min: consts.SEPIA_MIN_VALUE,
           max: consts.SEPIA_MAX_VALUE
         },
         step: consts.SEPIA_STEP
       });
-      sliderElement.noUiSlider.set(consts.SEPIA_MAX_VALUE);
+      sliderEl.noUiSlider.set(consts.SEPIA_MAX_VALUE);
       break;
-    case 'marvin':
-      sliderElement.noUiSlider.updateOptions({
+    case EffectTypes.MARVIN:
+      sliderEl.noUiSlider.updateOptions({
         range: {
           min: consts.MARVIN_MIN_VALUE,
           max: consts.MARVIN_MAX_VALUE
         },
         step: consts.MARVIN_STEP,
       });
-      sliderElement.noUiSlider.set(consts.MARVIN_MAX_VALUE);
+      sliderEl.noUiSlider.set(consts.MARVIN_MAX_VALUE);
       break;
-    case 'phobos':
-      sliderElement.noUiSlider.updateOptions({
+    case EffectTypes.PHOBOS:
+      sliderEl.noUiSlider.updateOptions({
         range: {
           min: consts.PHOBOS_MIN_VALUE,
           max: consts.PHOBOS_MAX_VALUE
         },
         step: consts.PHOBOS_STEP,
       });
-      sliderElement.noUiSlider.set(3);
+      sliderEl.noUiSlider.set(consts.PHOBOS_MAX_VALUE);
       break;
-    case 'heat':
-      sliderElement.noUiSlider.updateOptions({
+    case EffectTypes.HEAT:
+      sliderEl.noUiSlider.updateOptions({
         range: {
           min: consts.HEAT_MIN_VALUE,
           max: consts.HEAT_MAX_VALUE
         },
         step: consts.HEAT_STEP,
       });
-      sliderElement.noUiSlider.set(consts.HEAT_MAX_VALUE);
+      sliderEl.noUiSlider.set(consts.HEAT_MAX_VALUE);
       break;
-    case 'none':
-      sliderElement.noUiSlider.updateOptions({
+    case EffectTypes.NONE:
+      sliderEl.noUiSlider.updateOptions({
         range: {
           min: consts.NONE_MIN_VALUE,
           max: consts.NONE_MAX_VALUE
         },
         step: consts.NONE_STEP,
       });
-      sliderElement.noUiSlider.set(consts.NONE_MAX_VALUE);
-      sliderElement.setAttribute('disabled', true);
+      sliderEl.noUiSlider.set(consts.NONE_MAX_VALUE);
+      sliderEl.setAttribute('disabled', true);
+      hideElement(sliderContainerEl);
       break;
   }
 };
 
 const setImgStyle = (style) => {
-  imagePreviewElement.style.filter = style;
+  imagePreviewEl.style.filter = style;
 };
 
 const setEffectStyle = (value) => {
   switch(selectedEffect) {
-    case 'chrome':
+    case EffectTypes.CHROME:
       setImgStyle(`grayscale(${value})`);
       break;
-    case 'sepia':
+    case EffectTypes.SEPIA:
       setImgStyle(`sepia(${value})`);
       break;
-    case 'marvin':
+    case EffectTypes.MARVIN:
       setImgStyle(`invert(${value}%)`);
       break;
-    case 'phobos':
+    case EffectTypes.PHOBOS:
       setImgStyle(`blur(${value}px)`);
       break;
-    case 'heat':
+    case EffectTypes.HEAT:
       setImgStyle(`brightness(${value})`);
       break;
-    case 'none':
+    case EffectTypes.NONE:
       setImgStyle('');
       break;
   }
 };
 
 const setDefaultEffects = () => {
-  selectedEffect = 'none';
+  selectedEffect = EffectTypes.NONE;
   updateSliderOptions(selectedEffect);
   setEffectStyle();
-  effectListInputs[0].checked = true;
+  effectListInputEls[0].checked = true;
 };
 
-effectListInputs.forEach((effectButton) => {
+effectListInputEls.forEach((effectButton) => {
   effectButton.addEventListener('change', () => {
-    imagePreviewElement.className = '';
+    imagePreviewEl.className = '';
     setEffectStyle();
     selectedEffect = effectButton.value;
 
-    if (selectedEffect !== 'none') {
+    if (selectedEffect !== EffectTypes.NONE) {
       const newEffectClass = `effects__preview--${selectedEffect}`;
-      imagePreviewElement.classList.add(newEffectClass);
+      imagePreviewEl.classList.add(newEffectClass);
     }
 
     updateSliderOptions(selectedEffect);
   });
 });
 
-sliderElement.noUiSlider.on('update', () => {
-  sliderValueElement.value = sliderElement.noUiSlider.get();
-  setEffectStyle(sliderValueElement.value);
+sliderEl.noUiSlider.on('update', () => {
+  sliderValueEl.value = sliderEl.noUiSlider.get();
+  setEffectStyle(sliderValueEl.value);
 });
 
-export {sliderElement, sliderValueElement, imagePreviewElement, setDefaultEffects};
+export {sliderEl, sliderValueEl, imagePreviewEl, setDefaultEffects};

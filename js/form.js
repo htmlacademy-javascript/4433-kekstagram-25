@@ -1,13 +1,14 @@
 import {checkCommentLength} from './util.js';
 import {sendData} from './send-data.js';
+import consts from './consts.js';
 
-const formElement = document.querySelector('.img-upload__form');
+const formEl = document.querySelector('.img-upload__form');
 const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
-const hashtagsInput = formElement.querySelector('#hashtags');
-const descriptionInput = formElement.querySelector('#description');
-const submitButton = formElement.querySelector('.img-upload__submit');
+const hashtagsInputEl = formEl.querySelector('#hashtags');
+const descriptionInputEl = formEl.querySelector('#description');
+const submitButtonEl = formEl.querySelector('.img-upload__submit');
 
-const pristine = window.Pristine(formElement, {
+const pristine = window.Pristine(formEl, {
   classTo: 'img-upload__item',
   errorClass: 'img-upload__item--invalid',
   errorTextParent: 'img-upload__item',
@@ -15,41 +16,68 @@ const pristine = window.Pristine(formElement, {
   errorTextClass: 'img-upload__error'
 }, false);
 
+function hasUniqueElements(hashtags) {
+  const uniqueHashtags = [];
+
+  for (const hashtag of hashtags) {
+    if (!uniqueHashtags.includes(hashtag)) {
+      uniqueHashtags.push(hashtag);
+    }
+  }
+
+  return uniqueHashtags.length === hashtags.length;
+}
+
+
 const validateHashtags = (value) => {
-  const hashtags = value.split(' ');
   let isValidate = true;
 
   if (value.length > 0) {
+    const hashtags = value.toLowerCase().split(' ');
+
+    if (hashtags.length > 5) {
+      return false;
+    }
+
+    if (!hasUniqueElements(hashtags)) {
+      return false;
+    }
+
     hashtags.forEach((hashtag) => {
+      if (hashtag.length > consts.HASHTAG_MAX_LENGTH) {
+        isValidate = false;
+      }
+
       isValidate = isValidate && re.test(hashtag);
     });
   }
+
   return isValidate;
 };
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButtonEl.setAttribute('disabled', true);
+  submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT_PROGRESS;
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonEl.removeAttribute('disabled');
+  submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT;
 };
 
 pristine.addValidator(
-  hashtagsInput,
+  hashtagsInputEl,
   validateHashtags,
-  'Хэштег должен начинаться с # и состоять только из букв и цифр'
+  consts.HASHTAG_ERROR_MESSAGE
 );
 
 pristine.addValidator(
-  descriptionInput,
+  descriptionInputEl,
   checkCommentLength,
-  'Длина комментария должна быть не больше 140 символов'
+  consts.COMMENT_ERROR_MESSAGE
 );
 
-formElement.addEventListener('submit', (evt) => {
+formEl.addEventListener('submit', (evt) => {
   const isValidate = pristine.validate();
 
   if (isValidate) {
@@ -65,4 +93,4 @@ formElement.addEventListener('submit', (evt) => {
 });
 
 
-export {hashtagsInput, descriptionInput, unblockSubmitButton};
+export {hashtagsInputEl, descriptionInputEl, unblockSubmitButton};

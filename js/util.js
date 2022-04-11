@@ -13,7 +13,7 @@ const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === consts.ESCAPE_KEY;
 
 const removeValue = (input) => {
   input.innerHtml = '';
@@ -27,12 +27,12 @@ const shuffleArray = (array) => {
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
-  const foo = (...rest) => {
+  const createTimeuot = (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 
-  return foo();
+  return createTimeuot();
 };
 
 export {checkCommentLength, showElement, hideElement, isEscapeKey, removeValue, shuffleArray, debounce};

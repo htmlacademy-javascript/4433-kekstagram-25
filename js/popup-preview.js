@@ -2,36 +2,37 @@ import {clearCommentList, getAllComments} from './comment-list.js';
 import {openPopup, closePopup} from './popup.js';
 import {isEscapeKey} from './util.js';
 
-const popupElement = document.querySelector('.big-picture');
-const bigImageElement = popupElement.querySelector('.big-picture__img img');
-const likesElement = popupElement.querySelector('.likes-count');
-const imageDescriptionElement = popupElement.querySelector('.social__caption');
-const popupCloseButton = popupElement.querySelector('.big-picture__cancel');
+const popupEl = document.querySelector('.big-picture');
+const bigImageEl = popupEl.querySelector('.big-picture__img img');
+const likesEl = popupEl.querySelector('.likes-count');
+const imageDescriptionEl = popupEl.querySelector('.social__caption');
+const popupCloseButtonEl = popupEl.querySelector('.big-picture__cancel');
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closePopup(popupElement);
+    closePopup(popupEl);
     clearCommentList();
   }
 };
 
 const openPreviewPopup = (url, likes, comments, description) => {
-  openPopup(popupElement);
+  openPopup(popupEl);
 
-  bigImageElement.src = url;
-  likesElement.textContent = likes;
-  imageDescriptionElement.textContent = description;
+  bigImageEl.src = url;
+  likesEl.textContent = likes;
+  imageDescriptionEl.textContent = description;
 
   getAllComments(comments);
 
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-popupCloseButton.addEventListener('click', () => {
-  closePopup(popupElement);
+popupCloseButtonEl.addEventListener('click', () => {
+  closePopup(popupEl);
   clearCommentList();
-  document.addEventListener('keydown', onPopupEscKeydown);
+
+  document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
 export {openPreviewPopup};
