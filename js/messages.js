@@ -6,8 +6,14 @@ const MessageTypes = { SUCCESS: 'success', ERROR: 'error' };
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideElement(document.querySelector('.success'));
-    hideElement(document.querySelector('.error'));
+
+    for (const index in MessageTypes) {
+      const messageEl = document.querySelector(`.${MessageTypes[index]}`);
+      if (!messageEl.classList.contains('hidden')) {
+        hideElement(messageEl);
+        document.removeEventListener('keydown', onPopupEscKeydown);
+      }
+    }
   }
 };
 

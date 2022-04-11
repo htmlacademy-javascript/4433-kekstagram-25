@@ -31,7 +31,8 @@ const openPreviewPopup = (url, likes, comments, description) => {
 popupCloseButtonEl.addEventListener('click', () => {
   closePopup(popupEl);
   clearCommentList();
-  document.addEventListener('keydown', onPopupEscKeydown);
+
+  document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
 export {openPreviewPopup};
