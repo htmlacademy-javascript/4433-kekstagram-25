@@ -16,47 +16,65 @@ const pristine = window.Pristine(formEl, {
   errorTextClass: 'img-upload__error'
 }, false);
 
+function hasUniqueElements(hashtags) {
+  const uniqueHashtags = [];
+
+  for (const hashtag of hashtags) {
+    if (!uniqueHashtags.includes(hashtag)) {
+      uniqueHashtags.push(hashtag);
+    }
+  }
+
+  return uniqueHashtags.length === hashtags.length;
+}
+
+
 const validateHashtags = (value) => {
-  const hashtags = value.toLowerCase().split(' ');
   let isValidate = true;
 
   if (value.length > 0) {
-    hashtags.forEach((hashtag, index) => {
-      const prevHashtag = hashtags[index - 1];
-      if (hashtag.length > consts.HASHTAG_MAX_LENGTH) {
-        isValidate = false;
-      }
+    const hashtags = value.toLowerCase().split(' ');
 
-      if (index > 0 && prevHashtag && hashtag === prevHashtag) {
+    if (hashtags.length > 5) {
+      return false;
+    }
+
+    if (!hasUniqueElements(hashtags)) {
+      return false;
+    }
+
+    hashtags.forEach((hashtag) => {
+      if (hashtag.length > consts.HASHTAG_MAX_LENGTH) {
         isValidate = false;
       }
 
       isValidate = isValidate && re.test(hashtag);
     });
   }
+
   return isValidate;
 };
 
 const blockSubmitButton = () => {
   submitButtonEl.setAttribute('disabled', true);
-  submitButtonEl.textContent = 'Публикую...';
+  submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT_PROGRESS;
 };
 
 const unblockSubmitButton = () => {
   submitButtonEl.removeAttribute('disabled');
-  submitButtonEl.textContent = 'Опубликовать';
+  submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT;
 };
 
 pristine.addValidator(
   hashtagsInputEl,
   validateHashtags,
-  'Неверный формат хэштега'
+  consts.HASHTAG_ERROR_MESSAGE
 );
 
 pristine.addValidator(
   descriptionInputEl,
   checkCommentLength,
-  'Длина комментария должна быть не больше 140 символов'
+  consts.COMMENT_ERROR_MESSAGE
 );
 
 formEl.addEventListener('submit', (evt) => {
