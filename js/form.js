@@ -56,12 +56,12 @@ const validateHashtags = (value) => {
 };
 
 const blockSubmitButton = () => {
-  submitButtonEl.setAttribute('disabled', true);
+  submitButtonEl.disabled = true;
   submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT_PROGRESS;
 };
 
 const unblockSubmitButton = () => {
-  submitButtonEl.removeAttribute('disabled');
+  submitButtonEl.disabled = false;
   submitButtonEl.textContent = consts.UPLOADING_BUTTON_TEXT;
 };
 
@@ -91,6 +91,5 @@ formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-
 
 export {hashtagsInputEl, descriptionInputEl, unblockSubmitButton};

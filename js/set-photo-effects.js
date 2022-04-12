@@ -29,11 +29,11 @@ noUiSlider.create(sliderEl, {
   connect: 'lower',
 });
 
-sliderEl.setAttribute('disabled', true);
+sliderEl.disabled = true;
 hideElement(sliderContainerEl);
 
 const updateSliderOptions = (effectType) => {
-  sliderEl.removeAttribute('disabled');
+  sliderEl.disabled = false;
   if (sliderContainerEl.classList.contains('hidden')) {
     showElement(sliderContainerEl);
   }
@@ -89,7 +89,7 @@ const updateSliderOptions = (effectType) => {
         step: consts.NONE_STEP,
       });
       sliderEl.noUiSlider.set(consts.NONE_MAX_VALUE);
-      sliderEl.setAttribute('disabled', true);
+      sliderEl.disabled = true;
       hideElement(sliderContainerEl);
       break;
   }
